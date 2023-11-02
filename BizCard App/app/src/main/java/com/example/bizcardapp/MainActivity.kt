@@ -50,9 +50,11 @@ fun CreateBizCard() {
                 .height(390.dp)
                 .width(12.dp),
             RoundedCornerShape(corner = CornerSize(15.dp)),
-            colors = CardDefaults.cardColors( // inisialisasi untuk background color
+            // inisialisasi untuk background color
+            colors = CardDefaults.cardColors(
                 containerColor = Color.Green
             ),
+            // inisialiasi untuk elevation
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
 
         }
