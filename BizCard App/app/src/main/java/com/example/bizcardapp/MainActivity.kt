@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +38,8 @@ import com.example.bizcardapp.ui.theme.BizCardAppTheme
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Divider
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -60,6 +64,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CreateBizCard() {
+    val buttonClickedState = remember {
+        mutableStateOf(false)
+    }
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,7 +79,7 @@ fun CreateBizCard() {
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
 
-            Column(modifier = Modifier.height(300.dp),
+            Column(modifier = Modifier,
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 CreatedImageProfile()
@@ -80,13 +87,18 @@ fun CreateBizCard() {
                 CreateInfo()
                 Button(
                     onClick = {
-                        Log.d("Clicked", "CreateBizCard: Clicked!!")
+                        buttonClickedState.value = !buttonClickedState.value
                     }
                 ) {
-                    Text(text = "Portofolio",
+                    Text("Portofolio",
                         style = MaterialTheme.typography.titleSmall)
+                }
+                if (buttonClickedState.value) {
+                    Content()
+                } else {
+                    Box() {
 
-
+                    }
                 }
             }
 
@@ -96,7 +108,7 @@ fun CreateBizCard() {
 
 }
 
-@Preview
+//@Preview
 @Composable
 fun Content() {
     Box(modifier = Modifier
@@ -110,15 +122,26 @@ fun Content() {
             shape = RoundedCornerShape(corner = CornerSize(6.dp)),
             border = BorderStroke(width = 2.dp, color = Color.LightGray)) {
 
-            Portofolio(data = listOf("Project 1", "Project 2", "Project 3"))
+            Portofolio(listOf("Project 1",
+                "Project 2",
+                "Project 3",
+                "Project 4",
+                "Project 5"))
+
+
         }
     }
 }
 
 @Composable
 fun Portofolio(data: List<String>) {
-    Text(text = "Projects go here!")
+    LazyColumn {
+        items(data) { item: String ->
+            Text(item,color = Color.Black)
+        }
+    }
 }
+
 
 
 @Composable
