@@ -150,7 +150,7 @@ fun Portofolio(data: List<String>) {
                     Column(modifier = Modifier.padding(7.dp).align(alignment = Alignment.CenterVertically)) {
 
                         Text(text = item, fontWeight = FontWeight.Bold)
-                        Text(text = "A Great Project",
+                        Text(text = "A Great Project!",
                             style = MaterialTheme.typography.bodySmall)
                     }
 
