@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,8 +42,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 
 
 class MainActivity : ComponentActivity() {
@@ -96,9 +100,7 @@ fun CreateBizCard() {
                 if (buttonClickedState.value) {
                     Content()
                 } else {
-                    Box() {
-
-                    }
+                    Box {}
                 }
             }
 
@@ -137,7 +139,25 @@ fun Content() {
 fun Portofolio(data: List<String>) {
     LazyColumn {
         items(data) { item: String ->
-            Text(item,color = Color.Black)
+            Card(modifier = Modifier
+                .padding(13.dp)
+                .fillMaxWidth(),
+                shape = RectangleShape,
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
+                Row(modifier = Modifier
+                    .padding(8.dp)) {
+                    CreatedImageProfile(modifier = Modifier.size(100.dp))
+                    Column(modifier = Modifier.padding(7.dp).align(alignment = Alignment.CenterVertically)) {
+
+                        Text(text = item, fontWeight = FontWeight.Bold)
+                        Text(text = "A Great Project",
+                            style = MaterialTheme.typography.bodySmall)
+                    }
+
+
+                }
+
+            }
         }
     }
 }
@@ -181,7 +201,7 @@ private fun CreatedImageProfile(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.zaki),
             contentDescription = "Profile Image",
-            modifier = Modifier.size(135.dp),
+            modifier = modifier.size(135.dp),
             contentScale = ContentScale.Crop
         )
 
@@ -189,7 +209,7 @@ private fun CreatedImageProfile(modifier: Modifier = Modifier) {
 }
 
 
-//@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun DefaultPreview() {
     BizCardAppTheme {
